@@ -29,4 +29,8 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private Task task;
+
+    public Comment(String text){
+        this.text = text;
+    }
 }

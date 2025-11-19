@@ -33,8 +33,8 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Status status = Status.TODO;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -52,4 +52,30 @@ public class Task {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<Tag> tags = new HashSet<>();
+
+    public Task(String title, String description, Status status) {
+        this.title = title;
+        this.description = description;
+        this.status = status;
+    }
+
+    public Task(Long id,
+                        String title,
+                        String description,
+                        Status status,
+                        User user,
+                        Set<String> tags,
+                        LocalDateTime createdAt,
+                        LocalDateTime updatedAt) {
+
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.user = user;
+        this.tags = new HashSet<>();
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
 }

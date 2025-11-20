@@ -98,3 +98,36 @@ Many-to-Many with Task
 * Postman Link for all apis : https://web.postman.co/workspace/My-Workspace~39a2f4bb-03ba-4102-8f3f-840c169bdc37/collection/30375219-236492ff-7af4-45d3-98bc-6c949b982f54?action=share&source=copy-link&creator=30375219
 
 
+## API ScreenShots
+createUser
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/createUser.PNG?raw=true)
+getAllUsers
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/getAllUsers.PNG?raw=true)
+getUserTasks
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/getUserTasks.PNG?raw=true)
+createTask
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/createTask.PNG?raw=true)
+getTasksByFilter
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/getTasksByFilter.PNG?raw=true)
+getTaskById
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/getTaskById.PNG?raw=true)
+updateTaskById
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/updateTaskById.PNG?raw=true)
+deleteTaskById
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/deleteTaskById.PNG?raw=true)
+addComment
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/addComment.PNG?raw=true)
+getTaskComments
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/getTaskComments.PNG?raw=true)
+createTag
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/createTag.PNG?raw=true)
+getTags
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/getTags.PNG?raw=true)
+assignTagtoTask
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/assignTagtoTask.PNG?raw=true)
+deleteTaskTag
+![update](https://github.com/Prachethan1/TaskManagementApi/blob/main/screenshots/deleteTaskTag.PNG?raw=true)
+
+
+
+

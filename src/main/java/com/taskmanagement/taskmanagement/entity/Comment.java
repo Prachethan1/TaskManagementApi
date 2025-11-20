@@ -21,7 +21,7 @@ public class Comment {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String text;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

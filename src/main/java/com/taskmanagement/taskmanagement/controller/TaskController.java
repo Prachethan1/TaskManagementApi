@@ -4,14 +4,17 @@ import com.taskmanagement.taskmanagement.dto.request.CreateTaskRequest;
 import com.taskmanagement.taskmanagement.dto.request.UpdateTaskRequest;
 import com.taskmanagement.taskmanagement.dto.response.TaskBaseResponse;
 import com.taskmanagement.taskmanagement.dto.response.TaskResponse;
+import com.taskmanagement.taskmanagement.entity.Status;
 import com.taskmanagement.taskmanagement.entity.Task;
 import com.taskmanagement.taskmanagement.service.TaskService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/tasks")
@@ -31,8 +34,13 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TaskResponse>> getAll(){
-        return ResponseEntity.ok(taskService.getAll());
+    public ResponseEntity<Page<TaskResponse>> getAll(
+            @RequestParam Optional<Status> status,
+            @RequestParam Optional<String> tag,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return ResponseEntity.ok(taskService.getAll(status, tag, page, size));
     }
 
     @GetMapping("/{id}")

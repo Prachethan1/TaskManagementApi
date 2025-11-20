@@ -12,6 +12,10 @@ import com.taskmanagement.taskmanagement.exception.ResourceNotFoundException;
 import com.taskmanagement.taskmanagement.repository.TagRepository;
 import com.taskmanagement.taskmanagement.repository.TaskRepository;
 import com.taskmanagement.taskmanagement.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,11 +50,19 @@ public class TaskService {
     }
 
     @Transactional(readOnly = true)
-    public List<TaskResponse> getAll() {
-        return taskRepository.findAll()
-                .stream()
-                .map(this::convertToResponse)
-                .collect(Collectors.toList());
+    public Page<TaskResponse> getAll(Optional<Status> status, Optional<String> tag, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Page<Task> tasks;
+
+        if (status.isPresent()) {
+            tasks = taskRepository.findAllByStatus(status.get(), pageable);
+        } else if (tag.isPresent()) {
+            tasks = taskRepository.findAllByTagName(tag.get(), pageable);
+        } else {
+            tasks = taskRepository.findAll(pageable);
+        }
+
+        return tasks.map(this::convertToResponse);
     }
 
     @Transactional(readOnly = true)

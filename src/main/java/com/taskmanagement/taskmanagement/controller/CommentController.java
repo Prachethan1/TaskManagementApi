@@ -1,7 +1,7 @@
 package com.taskmanagement.taskmanagement.controller;
 
-import com.taskmanagement.taskmanagement.dto.CommentResponse;
-import com.taskmanagement.taskmanagement.dto.CreateCommentRequest;
+import com.taskmanagement.taskmanagement.dto.response.CommentResponse;
+import com.taskmanagement.taskmanagement.dto.request.CreateCommentRequest;
 import com.taskmanagement.taskmanagement.entity.Comment;
 import com.taskmanagement.taskmanagement.service.CommentService;
 import jakarta.validation.Valid;
@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController

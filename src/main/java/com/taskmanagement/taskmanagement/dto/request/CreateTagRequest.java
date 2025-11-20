@@ -1,4 +1,4 @@
-package com.taskmanagement.taskmanagement.dto;
+package com.taskmanagement.taskmanagement.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

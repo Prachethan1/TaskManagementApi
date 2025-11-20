@@ -1,7 +1,7 @@
 package com.taskmanagement.taskmanagement.service;
 
-import com.taskmanagement.taskmanagement.dto.CommentResponse;
-import com.taskmanagement.taskmanagement.dto.UserResponse;
+import com.taskmanagement.taskmanagement.dto.response.CommentResponse;
+import com.taskmanagement.taskmanagement.dto.response.UserResponse;
 import com.taskmanagement.taskmanagement.entity.Comment;
 import com.taskmanagement.taskmanagement.entity.Task;
 import com.taskmanagement.taskmanagement.entity.User;

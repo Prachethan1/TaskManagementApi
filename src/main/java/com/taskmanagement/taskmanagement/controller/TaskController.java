@@ -1,12 +1,12 @@
 package com.taskmanagement.taskmanagement.controller;
 
-import com.taskmanagement.taskmanagement.dto.CreateTaskRequest;
-import com.taskmanagement.taskmanagement.dto.TaskResponse;
-import com.taskmanagement.taskmanagement.dto.UpdateTaskRequest;
+import com.taskmanagement.taskmanagement.dto.request.CreateTaskRequest;
+import com.taskmanagement.taskmanagement.dto.request.UpdateTaskRequest;
+import com.taskmanagement.taskmanagement.dto.response.TaskBaseResponse;
+import com.taskmanagement.taskmanagement.dto.response.TaskResponse;
 import com.taskmanagement.taskmanagement.entity.Task;
 import com.taskmanagement.taskmanagement.service.TaskService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,6 @@ public class TaskController {
 
     private final TaskService taskService;
 
-    @Autowired
     public TaskController(TaskService taskService){
         this.taskService = taskService;
     }
@@ -32,18 +31,18 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Task>> getAll(){
+    public ResponseEntity<List<TaskResponse>> getAll(){
         return ResponseEntity.ok(taskService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Task> getById(@PathVariable Long id){
+    public ResponseEntity<TaskResponse> getById(@PathVariable Long id){
         return ResponseEntity.ok(taskService.getById(id));
     }
 
     @PutMapping("/{id}")
-    public Task update(@PathVariable Long id, @Valid @RequestBody UpdateTaskRequest req){
-        return taskService.update(id, req.getTitle(), req.getDescription(), req.getStatus());
+    public ResponseEntity<TaskResponse> update(@PathVariable Long id, @Valid @RequestBody UpdateTaskRequest req){
+        return ResponseEntity.ok(taskService.update(id, req.getTitle(), req.getDescription(), req.getStatus()));
     }
 
     @DeleteMapping("/{id}")
@@ -51,4 +50,15 @@ public class TaskController {
         taskService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{taskId}/tags/{tagId}")
+    public ResponseEntity<TaskBaseResponse> assignTag(@PathVariable Long taskId, @PathVariable Long tagId){
+        return ResponseEntity.ok(taskService.assignTag(taskId, tagId));
+    }
+
+    @DeleteMapping("/{taskId}/tags/{tagId}")
+    public ResponseEntity<TaskBaseResponse> removeTag(@PathVariable Long taskId, @PathVariable Long tagId){
+        return ResponseEntity.ok(taskService.removeTag(taskId, tagId));
+    }
 }
+

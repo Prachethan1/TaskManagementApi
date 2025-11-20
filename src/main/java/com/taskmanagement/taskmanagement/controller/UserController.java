@@ -1,16 +1,14 @@
 package com.taskmanagement.taskmanagement.controller;
 
-import com.taskmanagement.taskmanagement.dto.CreateUserRequest;
+import com.taskmanagement.taskmanagement.dto.request.CreateUserRequest;
+import com.taskmanagement.taskmanagement.dto.response.TaskResponse;
+import com.taskmanagement.taskmanagement.dto.response.UserResponse;
 import com.taskmanagement.taskmanagement.entity.User;
 import com.taskmanagement.taskmanagement.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -20,23 +18,25 @@ public class UserController {
 
     private final UserService userService;
 
-    @Autowired
     public UserController(UserService userService){
-        this.userService=userService;
+        this.userService = userService;
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@Valid @RequestBody CreateUserRequest request){
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody CreateUserRequest request){
         User user = new User(request.getName(), request.getEmail());
         User saved = userService.createUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        UserResponse response = new UserResponse(saved.getId(), saved.getName(), saved.getEmail());
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAll(){ return ResponseEntity.ok(userService.getAll()); }
+    public ResponseEntity<List<UserResponse>> getAll(){
+        return ResponseEntity.ok(userService.getAll());
+    }
 
     @GetMapping("/{userId}/tasks")
-    public ResponseEntity<?> getTasksForUser(@PathVariable Long userId){
-        return ResponseEntity.ok(userService.getById(userId).getTasks());
+    public ResponseEntity<List<TaskResponse>> getTasksForUser(@PathVariable Long userId){
+        return ResponseEntity.ok(userService.getTasksForUser(userId));
     }
 }

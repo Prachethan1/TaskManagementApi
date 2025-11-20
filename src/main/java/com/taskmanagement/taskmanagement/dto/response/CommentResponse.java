@@ -1,4 +1,4 @@
-package com.taskmanagement.taskmanagement.dto;
+package com.taskmanagement.taskmanagement.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +15,6 @@ public class CommentResponse {
 
     private Long id;
     private String text;
-    private UserResponse userResponse;
+    private UserResponse user;
     private LocalDateTime createdAt;
 }

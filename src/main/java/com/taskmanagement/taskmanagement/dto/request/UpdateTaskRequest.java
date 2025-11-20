@@ -1,4 +1,4 @@
-package com.taskmanagement.taskmanagement.dto;
+package com.taskmanagement.taskmanagement.dto.request;
 
 import com.taskmanagement.taskmanagement.entity.Status;
 import jakarta.validation.constraints.*;

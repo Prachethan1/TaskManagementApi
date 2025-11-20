@@ -1,11 +1,14 @@
 package com.taskmanagement.taskmanagement.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -42,7 +45,7 @@ public class Task {
     private User user;
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonBackReference
     private List<Comment> comments = new ArrayList<>();
 
     @ManyToMany
@@ -51,6 +54,8 @@ public class Task {
             joinColumns = @JoinColumn(name = "task_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private Set<Tag> tags = new HashSet<>();
 
     public Task(String title, String description, Status status) {
@@ -64,7 +69,7 @@ public class Task {
                         String description,
                         Status status,
                         User user,
-                        Set<String> tags,
+                        Set<Tag> tags,
                         LocalDateTime createdAt,
                         LocalDateTime updatedAt) {
 
@@ -73,7 +78,7 @@ public class Task {
         this.description = description;
         this.status = status;
         this.user = user;
-        this.tags = new HashSet<>();
+        this.tags = tags;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

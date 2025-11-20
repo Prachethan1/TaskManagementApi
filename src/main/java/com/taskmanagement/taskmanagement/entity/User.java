@@ -1,5 +1,6 @@
 package com.taskmanagement.taskmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -34,12 +35,8 @@ public class User {
     @JsonManagedReference
     private List<Comment> comments = new ArrayList<>();
 
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
 
-    public User(Long id, String name, String email) {
+    public User(String name, String email) {
         this.name = name;
         this.email = email;
     }

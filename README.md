@@ -95,6 +95,6 @@ Many-to-Many with Task
 | POST   | /api/tasks/{taskId}/tags/{tagId} | Assign a tag to a task |
 | DELETE | /api/tasks/{taskId}/tags/{tagId} | Remove a tag from a task |
 
-
+* Postman Link for all apis : https://web.postman.co/workspace/My-Workspace~39a2f4bb-03ba-4102-8f3f-840c169bdc37/collection/30375219-236492ff-7af4-45d3-98bc-6c949b982f54?action=share&source=copy-link&creator=30375219
 
 

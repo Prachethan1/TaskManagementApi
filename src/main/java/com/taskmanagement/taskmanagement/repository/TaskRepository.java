@@ -16,4 +16,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     @Query("SELECT t FROM Task t JOIN t.tags tag WHERE tag.name = :tagName")
     Page<Task> findAllByTagName(String tagName, Pageable pageable);
+
 }

@@ -1,8 +1,8 @@
 package com.taskmanagement.taskmanagement.controller;
 
+import com.taskmanagement.taskmanagement.dto.response.CommentBaseResponse;
 import com.taskmanagement.taskmanagement.dto.response.CommentResponse;
 import com.taskmanagement.taskmanagement.dto.request.CreateCommentRequest;
-import com.taskmanagement.taskmanagement.entity.Comment;
 import com.taskmanagement.taskmanagement.service.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class CommentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Comment>> getAll(@PathVariable Long taskId){
+    public ResponseEntity<List<CommentBaseResponse>> getAll(@PathVariable Long taskId){
         return ResponseEntity.ok(commentService.getAll(taskId));
     }
 }

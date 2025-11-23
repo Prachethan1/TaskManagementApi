@@ -1,5 +1,6 @@
 package com.taskmanagement.taskmanagement.service;
 
+import com.taskmanagement.taskmanagement.dto.response.CommentBaseResponse;
 import com.taskmanagement.taskmanagement.dto.response.CommentResponse;
 import com.taskmanagement.taskmanagement.dto.response.UserResponse;
 import com.taskmanagement.taskmanagement.entity.Comment;
@@ -48,10 +49,19 @@ public class CommentService {
                 user);
     }
 
-    public List<Comment> getAll(Long taskId) {
+    public List<CommentBaseResponse> getAll(Long taskId) {
         if(!taskRepository.existsById(taskId)){
             throw new ResourceNotFoundException("Task not found: " + taskId);
         }
-        return commentRepository.findByTaskId(taskId);
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found: " + taskId));
+        return task.getComments()
+                .stream()
+                .map(
+                        comment -> new CommentBaseResponse(
+                                comment.getId(),
+                                comment.getText()
+                        )
+                ).toList();
     }
 }

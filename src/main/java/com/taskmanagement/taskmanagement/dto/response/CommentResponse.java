@@ -11,9 +11,11 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentResponse {
-
-    private Long id;
-    private String text;
+public class CommentResponse extends CommentBaseResponse {
     private UserResponse user;
+
+    public CommentResponse(Long id, String text, UserResponse user) {
+        super(id, text);
+        this.user = user;
+    }
 }

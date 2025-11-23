@@ -1,6 +1,7 @@
 package com.taskmanagement.taskmanagement.controller;
 
 import com.taskmanagement.taskmanagement.dto.request.CreateTagRequest;
+import com.taskmanagement.taskmanagement.dto.response.TagResponse;
 import com.taskmanagement.taskmanagement.entity.Tag;
 import com.taskmanagement.taskmanagement.service.TagService;
 import jakarta.validation.Valid;
@@ -22,15 +23,15 @@ public class TagController {
     }
 
     @PostMapping
-    public ResponseEntity<Tag> createTag(@Valid @RequestBody CreateTagRequest request){
+    public ResponseEntity<TagResponse> createTag(@Valid @RequestBody CreateTagRequest request){
         Tag tag = new Tag(request.getName());
-        Tag saved = tagService.createTag(tag);
+        TagResponse saved = tagService.createTag(tag);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @GetMapping
-    public ResponseEntity<List<Tag>> getAll(){
-        List<Tag> tag = tagService.getAll();
+    public ResponseEntity<List<TagResponse>> getAll(){
+        List<TagResponse> tag = tagService.getAll();
         return ResponseEntity.ok(tag);
     }
 }

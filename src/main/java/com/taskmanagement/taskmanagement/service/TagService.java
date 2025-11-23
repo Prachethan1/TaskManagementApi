@@ -1,5 +1,6 @@
 package com.taskmanagement.taskmanagement.service;
 
+import com.taskmanagement.taskmanagement.dto.response.TagResponse;
 import com.taskmanagement.taskmanagement.entity.Tag;
 import com.taskmanagement.taskmanagement.repository.TagRepository;
 import org.springframework.stereotype.Service;
@@ -16,15 +17,27 @@ public class TagService {
         this.tagRepository = tagRepository;
     }
 
-    public Tag createTag(Tag tag) {
+    public TagResponse createTag(Tag tag) {
         Optional<Tag> existing = Optional.ofNullable(tagRepository.findByName(tag.getName()));
         if(existing.isPresent()){
-            return existing.get();
+            return new TagResponse(
+                    tag.getId(),
+                    tag.getName()
+            );
         }
-        return tagRepository.save(tag);
+        tagRepository.save(tag);
+        return new TagResponse(
+                tag.getId(),
+                tag.getName()
+        );
     }
 
-    public List<Tag> getAll() {
-        return tagRepository.findAll();
+    public List<TagResponse> getAll() {
+        return tagRepository.findAll()
+                .stream()
+                .map(tag -> new TagResponse(
+                        tag.getId(),
+                        tag.getName()
+                )).toList();
     }
 }

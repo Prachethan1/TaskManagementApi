@@ -30,8 +30,8 @@ public class CommentService {
     }
 
     public CommentResponse addComment(Long taskId, Long userId, String text) {
-        Task task = taskRepository.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task not found with id"));
-        User u = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id"));
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task not found"));
+        User u = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         Comment comment = new Comment(text);
         comment.setTask(task);
@@ -51,10 +51,10 @@ public class CommentService {
 
     public List<CommentBaseResponse> getAll(Long taskId) {
         if(!taskRepository.existsById(taskId)){
-            throw new ResourceNotFoundException("Task not found: " + taskId);
+            throw new ResourceNotFoundException("Task not found");
         }
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new ResourceNotFoundException("Task not found: " + taskId));
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found"));
         return task.getComments()
                 .stream()
                 .map(

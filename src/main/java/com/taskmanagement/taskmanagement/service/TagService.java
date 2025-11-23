@@ -21,8 +21,8 @@ public class TagService {
         Optional<Tag> existing = Optional.ofNullable(tagRepository.findByName(tag.getName()));
         if(existing.isPresent()){
             return new TagResponse(
-                    tag.getId(),
-                    tag.getName()
+                    existing.get().getId(),
+                    existing.get().getName()
             );
         }
         tagRepository.save(tag);

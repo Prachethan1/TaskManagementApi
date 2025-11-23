@@ -67,18 +67,13 @@ public class TaskService {
 
     @Transactional(readOnly = true)
     public TaskResponse getById(Long id) {
-        Task task = getTaskEntityById(id);
+        Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found"));
         return convertToResponse(task);
-    }
-
-    private Task getTaskEntityById(Long id) {
-        return taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
     }
 
     @Transactional
     public TaskResponse update(Long id, String title, String description, Status status) {
-        Task task = getTaskEntityById(id);
+        Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found"));
 
         task.setTitle(title);
         task.setDescription(description);
@@ -92,13 +87,13 @@ public class TaskService {
 
     @Transactional
     public void delete(Long id) {
-        Task task = getTaskEntityById(id);
+        Task task = taskRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Task not found"));
         taskRepository.delete(task);
     }
 
     @Transactional
     public TaskBaseResponse assignTag(Long taskId, Long tagId) {
-        Task task = getTaskEntityById(taskId);
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task not found"));
         Tag tag = tagRepository.findById(tagId)
                 .orElseThrow(() -> new ResourceNotFoundException("Tag not found"));
 
@@ -117,12 +112,12 @@ public class TaskService {
 
     @Transactional
     public TaskBaseResponse removeTag(Long taskId, Long tagId) {
-        Task task = getTaskEntityById(taskId);
+        Task task = taskRepository.findById(taskId).orElseThrow(() -> new ResourceNotFoundException("Task not found"));
         Tag tag = tagRepository.findById(tagId)
                 .orElseThrow(() -> new ResourceNotFoundException("Tag not found"));
 
         task.getTags().remove(tag);
-        tag.getTasks().remove(task); // maintain bidirectional
+        tag.getTasks().remove(task);
 
         Task saved = taskRepository.save(task);
 

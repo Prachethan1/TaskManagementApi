@@ -35,7 +35,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public List<TaskResponse> getTasksForUser(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         return user.getTasks().stream()
                 .map(task -> new TaskResponse(
